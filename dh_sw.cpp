@@ -365,20 +365,22 @@ NN_DIGIT c
 
     if (hw_mult_done.read() == false)
     {
-      std::cout << "send mult (dh_sw)"  << std::endl;
+      // std::cout << "send mult (dh_sw)"  << std::endl;
         out_data_1.write(b);
         out_data_2.write(c);  
         hw_mult_enable.write(true);
 
-        wait();
-        // while (hw_mult_done.read() == false) 
-        // {
-        //   // wait
-        // }
+        while (1)
+        {
+          if (hw_mult_done.read() == true) 
+          break;
+          wait();
+        }
 
         a[0] = in_data_low.read();
         a[1] = in_data_high.read();
         hw_mult_enable.write(false);
+        wait();
     }
 }
 

@@ -23,7 +23,7 @@ void dh_hw_mult::process_hw_mult()
 		switch(state)
 		{
 			case WAIT:
-			std::cout << "wait state (hw_mult)"  << std::endl;
+			// std::cout << "wait state (hw_mult)"  << std::endl;
 			default:
 				if (hw_mult_enable.read() == true) 
 				{
@@ -32,7 +32,7 @@ void dh_hw_mult::process_hw_mult()
 				break;
 
 			case EXECUTE:
-				std::cout << "execute state (hw_mult)"  << std::endl;
+				// std::cout << "execute state (hw_mult)"  << std::endl;
 				// Read inputs	
 				b = in_data_1.read();
 				c = in_data_2.read();
@@ -54,21 +54,22 @@ void dh_hw_mult::process_hw_mult()
 				if ((a[0] += u) < u) a[1]++;
 				a[1] += HIGH_HALF (t);
 				state = OUTPUT;
-
+				wait();
 				break;
 
 			case OUTPUT:
-			std::cout << "output state (hw_mult)"  << std::endl;
+			// std::cout << "output state (hw_mult)"  << std::endl;
 				// Write outputs state
 				out_data_low.write(a[0]);
 				out_data_high.write(a[1]);
 				hw_mult_done.write(true);
 				state = FINISH;
+				wait();
 
 				break;
 
 			case FINISH:
-			std::cout << "finish state (hw_mult)"  << std::endl;
+			// std::cout << "finish state (hw_mult)"  << std::endl;
 				if (hw_mult_enable.read() == false) 
 				{
 					hw_mult_done.write(false);
