@@ -12,13 +12,13 @@ SC_MODULE (dh_hw_mult)
   sc_out<NN_DIGIT> out_data_low;
   sc_out<NN_DIGIT> out_data_high;
   sc_out<bool> hw_mult_done;
+  sc_in_clk clk;
 
   void process_hw_mult();
   
   SC_CTOR (dh_hw_mult)
   {
-    SC_THREAD (process_hw_mult);
-    sensitive << hw_mult_enable;
+    SC_CTHREAD (process_hw_mult, clk.pos());
   }
   
 };
