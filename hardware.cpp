@@ -2,12 +2,6 @@
 #include "digit.h"
 #include "hardware.h"
 
-
-// void m_register::run_m_register()
-// {
-
-// }
-
 void splitter::do_splitter()
 {
 	out_high.write(HIGH_HALF(in.read()));
