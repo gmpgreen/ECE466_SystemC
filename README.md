@@ -1,2 +1,2 @@
 # ECE466
-Project
+Hardware-Software Co-simulation with SystemC
